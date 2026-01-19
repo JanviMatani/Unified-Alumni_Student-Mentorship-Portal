@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
-// app.use("/mentor", mentorRoutes);
+app.use("/mentor", mentorRoutes);
 
 app.use(express.json());
 // app.use("/api/bookings", bookingRoutes);
