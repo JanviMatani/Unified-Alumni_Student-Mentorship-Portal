@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 export default function App() {
   return (
     <div className="flex min-h-screen bg-[#F8FAFC] font-sans">
-      
+
       {/* --- 1. SIDEBAR (Left Side) --- */}
       <div className="w-64 bg-white border-r border-slate-200 p-6 flex flex-col fixed h-full">
         <div className="flex items-center gap-2 mb-10 px-2">
           <div className="bg-blue-600 p-1.5 rounded-lg text-white font-bold">ED</div>
           <h1 className="text-xl font-bold tracking-tight text-slate-800">EDANSH</h1>
         </div>
-        
+
         <div className="flex flex-col items-center mb-10 bg-slate-50 p-4 rounded-2xl">
           <img src="https://i.pravatar.cc/150?u=hardik" className="w-16 h-16 rounded-full border-2 border-white shadow-sm mb-2" alt="profile" />
           <h3 className="font-bold text-sm text-slate-800">Hardik Singh</h3>
@@ -29,15 +29,19 @@ export default function App() {
           <div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
             <Users size={18} /> <span>Mentors</span>
           </div>
-          <div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
-            <Calendar size={18} /> <span>Schedule</span>
-          </div>
+          <div
+  onClick={() => window.location.href = "http://localhost:5174/bookings"}
+  className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition"
+>
+  <Calendar size={18} />
+  <span>Schedule</span>
+</div>
         </nav>
       </div>
 
       {/* --- 2. MAIN CONTENT (Right Side) --- */}
       <div className="flex-1 ml-64 p-8">
-        
+
         {/* Top Header */}
         <header className="flex justify-between items-center mb-8">
           <div className="relative w-96">
@@ -52,7 +56,7 @@ export default function App() {
         </header>
 
         <div className="grid grid-cols-12 gap-6">
-          
+
           {/* Main Column */}
           <div className="col-span-8 space-y-6">
             
