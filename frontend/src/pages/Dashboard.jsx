@@ -1,19 +1,25 @@
 import React from 'react';
 import { LayoutDashboard, Users, Calendar, MessageSquare, Bell, ChevronRight, PlayCircle, FileText, Search } from 'lucide-react';
 import { useAuth } from "../context/AuthContext";
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link
 
 export default function Dashboard() {
-
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <p>Loading dashboard...</p>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="animate-pulse font-semibold text-slate-500">Loading dashboard...</p>
+      </div>
+    );
   }
 
-  // 2️⃣ If not logged in
   if (!user) {
-    return <p>Please login to continue</p>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-red-500 font-bold">Please login to continue</p>
+      </div>
+    );
   }
 
   return (
@@ -27,24 +33,26 @@ export default function Dashboard() {
         </div>
         
         <div className="flex flex-col items-center mb-10 bg-slate-50 p-4 rounded-2xl">
-          <img src="https://i.pravatar.cc/150?u=hardik" className="w-16 h-16 rounded-full border-2 border-white shadow-sm mb-2" />
+          <img src="https://i.pravatar.cc/150?u=hardik" className="w-16 h-16 rounded-full border-2 border-white shadow-sm mb-2" alt="profile" />
           <h3 className="font-bold text-sm text-slate-800">{user.name}</h3>
           <p className="text-blue-600 text-[10px] font-bold uppercase tracking-wider">{user.role}</p>
         </div>
 
         <nav className="space-y-1 flex-1">
-          <div className="flex items-center gap-3 bg-blue-50 text-blue-600 p-3 rounded-xl cursor-pointer font-semibold">
+          <Link to="/dashboard" className="flex items-center gap-3 bg-blue-50 text-blue-600 p-3 rounded-xl cursor-pointer font-semibold">
             <LayoutDashboard size={18} /> <span>Dashboard</span>
-          </div>
+          </Link>
           <div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
             <MessageSquare size={18} /> <span>Messages</span>
           </div>
-          <div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
+          {/* Mentors link in sidebar */}
+          <Link to="/explore-mentors" className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
             <Users size={18} /> <span>Mentors</span>
-          </div>
-          <Link to="/bookings"><div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
-            <Calendar size={18} /> <span>Schedule</span>
-          </div>
+          </Link>
+          <Link to="/bookings">
+            <div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
+              <Calendar size={18} /> <span>Schedule</span>
+            </div>
           </Link>
         </nav>
       </div>
@@ -52,29 +60,33 @@ export default function Dashboard() {
       {/* --- 2. MAIN CONTENT (Right Side) --- */}
       <div className="flex-1 ml-64 p-8">
         
-        {/* Top Header */}
         <header className="flex justify-between items-center mb-8">
           <div className="relative w-96">
             <Search className="absolute left-3 top-2.5 text-slate-400" size={18} />
-            <input className="w-full bg-white border border-slate-200 rounded-full py-2 pl-10 pr-4 text-sm outline-none focus:border-blue-400 transition" placeholder="Search mentors, resources..." />
+            <input className="w-full bg-white border border-slate-200 rounded-full py-2 pl-10 pr-4 text-sm outline-none focus:border-blue-400 transition" placeholder="Search mentors..." />
           </div>
           <div className="flex gap-4 items-center">
             <button className="bg-white p-2 rounded-full border border-slate-200 text-slate-600 hover:bg-slate-50 transition"><Bell size={18}/></button>
             <div className="h-8 w-[1px] bg-slate-200 mx-2"></div>
-            <img src="https://i.pravatar.cc/100" className="w-9 h-9 rounded-full border border-slate-200" />
+            <img src="https://i.pravatar.cc/100" className="w-9 h-9 rounded-full border border-slate-200" alt="avatar" />
           </div>
         </header>
 
         <div className="grid grid-cols-12 gap-6">
           
-          {/* Main Column */}
           <div className="col-span-8 space-y-6">
-            {/* Banner */}
+            {/* Banner Section - Updated with Link */}
             <div className="bg-gradient-to-r from-blue-600 to-blue-400 p-8 rounded-[2.5rem] text-white shadow-lg shadow-blue-100 flex justify-between items-center">
               <div>
                 <h2 className="text-2xl font-bold mb-2">Find your perfect Mentor</h2>
                 <p className="text-blue-50 text-sm mb-6 opacity-90">Unlock your potential with 1-on-1 guidance.</p>
-                <button className="bg-white text-blue-600 px-6 py-2.5 rounded-full text-xs font-bold hover:bg-blue-50 transition shadow-md uppercase tracking-wider">Explore Now</button>
+                {/* Fixed Button to Link */}
+                <Link 
+                  to="/explore-mentors" 
+                  className="bg-white text-blue-600 px-6 py-2.5 rounded-full text-xs font-bold hover:bg-blue-50 transition shadow-md uppercase tracking-wider inline-block text-center"
+                >
+                  Explore Now
+                </Link>
               </div>
               <div className="hidden md:block opacity-20"><Users size={120} /></div>
             </div>
@@ -100,25 +112,25 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Mentors */}
+            {/* Recommended Mentors - Updated "See All" */}
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest">Recommended Mentors</h3>
-                <button className="text-blue-600 text-xs font-bold">See All</button>
+                <Link to="/explore-mentors" className="text-blue-600 text-xs font-bold hover:underline transition">See All</Link>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {[
                   { name: "Muskan Agarwal", role: "Product Designer @Google", match: "98" },
                   { name: "Karan Grover", role: "SDE-2 @Amazon", match: "92" }
                 ].map((m, i) => (
-                  <div key={i} className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition cursor-pointer group">
+                  <Link to="/explore-mentors" key={i} className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition cursor-pointer group">
                     <div className="flex justify-between items-start mb-4">
-                      <img src={`https://i.pravatar.cc/100?u=${i+10}`} className="w-12 h-12 rounded-2xl border border-slate-100" />
+                      <img src={`https://i.pravatar.cc/100?u=${i+10}`} className="w-12 h-12 rounded-2xl border border-slate-100" alt="mentor" />
                       <span className="bg-green-50 text-green-600 text-[10px] font-black px-2 py-1 rounded-lg tracking-tighter">{m.match}% MATCH</span>
                     </div>
                     <h4 className="font-bold text-slate-800 text-sm group-hover:text-blue-600 transition">{m.name}</h4>
                     <p className="text-[11px] text-slate-500 font-medium">{m.role}</p>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -128,7 +140,7 @@ export default function Dashboard() {
           <div className="col-span-4 space-y-6">
             <div className="bg-slate-900 rounded-[2.5rem] p-6 text-white shadow-xl">
               <h3 className="font-bold mb-4 flex items-center gap-2 tracking-wide text-sm underline decoration-blue-500 decoration-2">✨ AI Career Guide</h3>
-              <p className="text-[11px] text-slate-400 mb-6">Ask me anything about your career roadmap or interview prep.</p>
+              <p className="text-[11px] text-slate-400 mb-6">Ask me anything about your career roadmap.</p>
               <div className="bg-white/5 border border-white/10 p-3 rounded-2xl text-[11px] text-slate-300 hover:bg-white/10 cursor-pointer transition mb-2">How to crack Microsoft?</div>
               <div className="bg-white/5 border border-white/10 p-3 rounded-2xl text-[11px] text-slate-300 hover:bg-white/10 cursor-pointer transition">Prepare for UX interview...</div>
             </div>

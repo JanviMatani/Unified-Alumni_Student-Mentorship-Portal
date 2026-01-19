@@ -55,6 +55,8 @@ router.post("/login", async (req, res) => {
     });
   }
 
+const verified = true;  // ab student aur alumni dono verified
+
   if (!user.isVerified) {
     return res.status(403).json({
       message: "Account pending verification"
