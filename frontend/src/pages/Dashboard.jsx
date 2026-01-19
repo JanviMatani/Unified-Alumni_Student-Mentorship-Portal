@@ -1,6 +1,7 @@
 import React from 'react';
 import { LayoutDashboard, Users, Calendar, MessageSquare, Bell, ChevronRight, PlayCircle, FileText, Search } from 'lucide-react';
 import { useAuth } from "../context/AuthContext";
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
 
@@ -41,9 +42,10 @@ export default function Dashboard() {
           <div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
             <Users size={18} /> <span>Mentors</span>
           </div>
-          <div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
+          <Link to="/bookings"><div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
             <Calendar size={18} /> <span>Schedule</span>
           </div>
+          </Link>
         </nav>
       </div>
 
