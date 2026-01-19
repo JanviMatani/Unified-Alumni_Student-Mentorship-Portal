@@ -7,6 +7,7 @@ import {
   Bell,
   FileText,
   Search,
+  Mic,
   Plus
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
@@ -101,6 +102,12 @@ export default function Repositories() {
           <Link to="/explore-mentors"><div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
                       <Users size={18} /> <span>Mentors</span>
             </div></Link>
+            {/* NEW: Edansh Talks Sidebar Option */}
+                      <Link to="/edansh-talks" className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer font-semibold transition ${location.pathname === '/edansh-talks' ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50 group'}`}>
+                        <Mic size={18} className="group-hover:text-blue-600" /> 
+                        <span>Edansh Talks</span>
+                        <span className="ml-auto bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full animate-pulse">LIVE</span>
+                      </Link>
           <Link to="/bookings" className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 text-slate-500">
             <Calendar size={18} /> Schedule
           </Link>

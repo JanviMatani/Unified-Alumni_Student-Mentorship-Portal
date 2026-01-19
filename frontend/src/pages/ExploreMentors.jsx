@@ -11,6 +11,7 @@ import {
   LayoutDashboard,
   Users,
   Search,
+  Mic,
   Bell,
   MessageSquare,
   Calendar as CalendarMenu
@@ -114,12 +115,15 @@ export default function ExploreMentors() {
             <span>Messages</span>
           </Link>
 
-          <Link
-            to="/explore-mentors"
-            className="flex items-center gap-3 bg-blue-50 text-blue-600 p-3 rounded-xl font-semibold"
-          >
-            <Users size={18} />
-            <span>Mentors</span>
+          <Link to="/explore-mentors" className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer font-semibold transition ${location.pathname === '/explore-mentors' ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50'}`}>
+            <Users size={18} /> <span>Mentors</span>
+          </Link>
+
+          {/* NEW: Edansh Talks Sidebar Option */}
+          <Link to="/edansh-talks" className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer font-semibold transition ${location.pathname === '/edansh-talks' ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50 group'}`}>
+            <Mic size={18} className="group-hover:text-blue-600" /> 
+            <span>Edansh Talks</span>
+            <span className="ml-auto bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full animate-pulse">LIVE</span>
           </Link>
 
           <Link
