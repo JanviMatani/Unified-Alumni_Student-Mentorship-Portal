@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.routes.js";
 import profileRoutes from "./routes/profile.routes.js";
 import bookingRoutes from "./routes/bookingroutes.js";
 import mentorRoutes from "./routes/mentor.js";
+import repositoryRoutes from "./routes/repository.routes.js";
 dotenv.config();
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 app.use("/mentor", mentorRoutes);
+app.use("/repository", repositoryRoutes);
 
 app.use(express.json());
 // app.use("/api/bookings", bookingRoutes);

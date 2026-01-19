@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import Booking from "./pages/booking";
+import Repositories from "./pages/Repositories";
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +14,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/bookings" element={<Booking />} />
+        <Route path="/repositories" element={<Repositories />} />
       </Routes>
     </BrowserRouter>
   );

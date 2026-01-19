@@ -33,12 +33,12 @@ export default function Dashboard() {
         </div>
 
         <nav className="space-y-1 flex-1">
-          <div className="flex items-center gap-3 bg-blue-50 text-blue-600 p-3 rounded-xl cursor-pointer font-semibold">
+          <Link to="/dashboard"><div className="flex items-center gap-3 bg-blue-50 text-blue-600 p-3 rounded-xl cursor-pointer font-semibold">
             <LayoutDashboard size={18} /> <span>Dashboard</span>
-          </div>
-          <div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
+          </div></Link>
+          <Link to="/repositories"><div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
             <MessageSquare size={18} /> <span>Messages</span>
-          </div>
+          </div></Link>
           <div className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
             <Users size={18} /> <span>Mentors</span>
           </div>
