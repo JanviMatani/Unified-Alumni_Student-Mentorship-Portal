@@ -63,6 +63,10 @@ export default function Dashboard() {
           <Link to="/repositories" className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
             <MessageSquare size={18} /> <span>Messages</span>
           </Link>
+          <Link to="/leaderboard" className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
+            <MessageSquare size={18} /> <span>Leaderboard</span>
+          </Link>
+  
         </nav>
       </div>
 

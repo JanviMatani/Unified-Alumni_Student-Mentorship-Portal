@@ -1,42 +1,56 @@
 import React, { useState } from 'react';
-import { 
-  LayoutDashboard, Users, MessageSquare, Calendar, 
-  FileText, Mic, Settings, Search, Bell, Plus, X, 
+import {
+  LayoutDashboard, Users, MessageSquare, Calendar,
+  FileText, Mic, Settings, Search, Bell, Plus, X,
   ChevronRight, Upload, Zap, CheckCircle2, Trophy
 } from 'lucide-react';
-
+import { useNavigate } from "react-router-dom";
 export default function AlumniDashboard() {
+    const navigate = useNavigate();
   const [showTalkModal, setShowTalkModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
-  
+
   // Mahek Matani ka data display karne ke liye
   const user = { name: "Mahek Matani", role: "Senior Software Engineer" };
 
   return (
     <div className="flex min-h-screen bg-[#F0F7FF] font-sans text-slate-900">
-      
+
       {/* --- SIDEBAR --- */}
       <div className="w-66 bg-[#0A192F] p-6 flex flex-col fixed h-full shadow-2xl z-20">
         <div className="flex items-center gap-3 mb-10 px-2">
           <div className="bg-blue-500 p-2 rounded-xl text-white font-bold shadow-lg shadow-blue-500/30">ED</div>
           <h1 className="text-xl font-black tracking-widest text-white">EDANSH</h1>
         </div>
-        
+
         <nav className="space-y-2 flex-1">
           <NavItem icon={<LayoutDashboard size={19}/>} label="Dashboard" active />
           <NavItem icon={<Calendar size={19}/>} label="Appointments" />
           <NavItem icon={<MessageSquare size={19}/>} label="Messages" />
           <NavItem icon={<FileText size={19}/>} label="Resource Hub" />
           <NavItem icon={<Mic size={19}/>} label="My Talks" />
+
           <div className="pt-10 border-t border-white/5">
             <NavItem icon={<Settings size={19}/>} label="Settings" />
           </div>
+          <button
+  onClick={() => navigate("/leaderboard")}
+  className="flex items-center gap-4 p-4 rounded-[1.2rem] font-bold text-sm transition-all w-full bg-blue-600 text-white hover:bg-blue-500 shadow-lg shadow-blue-500/20"
+>
+  <Trophy size={19} />
+  <span>Leaderboard</span>
+</button>
+
+    <div className="pt-10 border-t border-white/5">
+      <NavItem icon={<Settings size={19}/>} label="Settings" />
+    </div>
+
         </nav>
       </div>
 
       {/* --- MAIN CONTENT --- */}
       <div className="flex-1 ml-64 p-8">
-        
+
         {/* Header */}
         <header className="flex justify-between items-center mb-8">
           <div className="relative w-1/3">
@@ -59,10 +73,10 @@ export default function AlumniDashboard() {
 
         {/* --- GRID LAYOUT --- */}
         <div className="grid grid-cols-12 gap-6">
-          
+
           {/* LEFT COLUMN */}
           <div className="col-span-8 grid grid-cols-2 gap-6">
-            
+
             {/* 1. Incoming Requests */}
             <div className="bg-white p-8 rounded-[3rem] border border-blue-50 shadow-xl shadow-blue-900/5 flex flex-col justify-between border-t-8 border-t-blue-400">
                 <div>

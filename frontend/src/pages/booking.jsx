@@ -47,13 +47,10 @@ export default function ScheduleAppointment() {
       const token = localStorage.getItem("token");
 
 const res = await fetch(
-  `http://localhost:5001/mentor/available?date=${date.toISOString()}`,
-  {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
+  `http://localhost:5001/api/mentors/available?date=${date.toISOString()}`,
+  { headers: { Authorization: `Bearer ${token}` } }
 );
+
 
 
       const data = await res.json();
