@@ -67,7 +67,7 @@ export default function Dashboard() {
             <MessageSquare size={18} /> <span>Leaderboard</span>
           </Link>
 
-          <Link to="/path" className="flex items-center gap-3 bg-blue-50 text-blue-600 p-3 rounded-xl font-semibold">
+          <Link to="/path" className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl  cursor-pointer transition font-semibold">
                       <Route size={18} /> <span>Path Visualizer</span>
           </Link>
   
