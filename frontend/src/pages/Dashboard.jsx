@@ -26,14 +26,14 @@ export default function Dashboard() {
 
   return (
     <div className="flex min-h-screen bg-[#F8FAFC] font-sans">
-      
+
       {/* --- 1. SIDEBAR (Modified with Edansh Talks) --- */}
       <div className="w-64 bg-white border-r border-slate-200 p-6 flex flex-col fixed h-full">
         <div className="flex items-center gap-2 mb-10 px-2">
           <div className="bg-blue-600 p-1.5 rounded-lg text-white font-bold shadow-lg shadow-blue-100">ED</div>
           <h1 className="text-xl font-bold tracking-tight text-slate-800">EDANSH</h1>
         </div>
-        
+
         <div className="flex flex-col items-center mb-10 bg-slate-50 p-4 rounded-3xl border border-slate-100">
           <img src={`https://ui-avatars.com/api/?name=${user.name}&background=0D8ABC&color=fff`} className="w-16 h-16 rounded-full border-2 border-white shadow-sm mb-2" alt="profile" />
           <h3 className="font-bold text-sm text-slate-800">{user.name}</h3>
@@ -44,14 +44,14 @@ export default function Dashboard() {
           <Link to="/dashboard" className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer font-semibold transition ${location.pathname === '/dashboard' ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50'}`}>
             <LayoutDashboard size={18} /> <span>Dashboard</span>
           </Link>
-          
+
           <Link to="/explore-mentors" className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer font-semibold transition ${location.pathname === '/explore-mentors' ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50'}`}>
             <Users size={18} /> <span>Mentors</span>
           </Link>
 
           {/* NEW: Edansh Talks Sidebar Option */}
           <Link to="/edansh-talks" className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer font-semibold transition ${location.pathname === '/edansh-talks' ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50 group'}`}>
-            <Mic size={18} className="group-hover:text-blue-600" /> 
+            <Mic size={18} className="group-hover:text-blue-600" />
             <span>Edansh Talks</span>
             <span className="ml-auto bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full animate-pulse">LIVE</span>
           </Link>
@@ -60,7 +60,7 @@ export default function Dashboard() {
             <Calendar size={18} /> <span>Schedule</span>
           </Link>
 
-          <Link to="/messages" className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
+          <Link to="/Repositories" className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
             <MessageSquare size={18} /> <span>Messages</span>
           </Link>
         </nav>
@@ -68,7 +68,7 @@ export default function Dashboard() {
 
       {/* --- 2. MAIN CONTENT --- */}
       <div className="flex-1 ml-64 p-8">
-        
+
         <header className="flex justify-between items-center mb-8">
           <div className="relative w-96">
             <Search className="absolute left-3 top-2.5 text-slate-400" size={18} />
@@ -82,7 +82,7 @@ export default function Dashboard() {
         </header>
 
         <div className="grid grid-cols-12 gap-6">
-          
+
           <div className="col-span-8 space-y-6">
             {/* Banner Section */}
             <div className="bg-gradient-to-r from-blue-700 to-indigo-500 p-8 rounded-[2.5rem] text-white shadow-xl shadow-blue-100 flex justify-between items-center overflow-hidden relative">

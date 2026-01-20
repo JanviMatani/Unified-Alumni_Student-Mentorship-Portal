@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 export default function ScheduleAppointment() {
 
     const { user, loading } = useAuth();
-  
+
     if (loading) {
       return (
         <div className="flex items-center justify-center min-h-screen">
@@ -26,7 +26,7 @@ export default function ScheduleAppointment() {
         </div>
       );
     }
-  
+
     if (!user) {
       return (
         <div className="flex items-center justify-center min-h-screen">
@@ -39,27 +39,44 @@ export default function ScheduleAppointment() {
   const [bookings, setBookings] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [availableMentors, setAvailableMentors] = useState([]);
-  const userId = "696d3bbf30ecce2424c540f5";
+  const userId = user._id;
 
   // 🔹 Fetch available mentors for a given date
   const fetchAvailableMentors = async (date) => {
     try {
-      const res = await fetch(
-        `http://localhost:5001/mentor/available?date=${date.toISOString()}`
-      );
+      const token = localStorage.getItem("token");
+
+const res = await fetch(
+  `http://localhost:5001/mentor/available?date=${date.toISOString()}`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+
       const data = await res.json();
       setAvailableMentors(data);
     } catch (err) {
       console.error(err);
     }
+
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5001/api/bookings/my/${userId}`)
-      .then(res => res.json())
-      .then(data => setBookings(data))
-      .catch(err => console.error(err));
-  }, []);
+  const token = localStorage.getItem("token");
+
+  fetch(`http://localhost:5001/api/bookings/my/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(res => res.json())
+    .then(data => setBookings(data))
+    .catch(err => console.error(err));
+}, [userId]);
+
 
   useEffect(() => {
     fetchAvailableMentors(selectedDate);
@@ -70,11 +87,17 @@ export default function ScheduleAppointment() {
     const endTime = new Date(selectedDate.getTime() + 60 * 60 * 1000);
 
     try {
-      const res = await fetch("http://localhost:5001/api/bookings/book", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mentorId, studentId: userId, startTime, endTime })
-      });
+      const token = localStorage.getItem("token");
+console.log("TOKEN:", localStorage.getItem("token"));
+
+const res = await fetch("http://localhost:5001/api/bookings/book", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  body: JSON.stringify({ mentorId, studentId: userId, startTime, endTime })
+});
 
       const data = await res.json();
       if (res.ok) {
@@ -121,7 +144,7 @@ export default function ScheduleAppointment() {
 
           {/* NEW: Edansh Talks Sidebar Option */}
                     <Link to="/edansh-talks" className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer font-semibold transition ${location.pathname === '/edansh-talks' ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50 group'}`}>
-                      <Mic size={18} className="group-hover:text-blue-600" /> 
+                      <Mic size={18} className="group-hover:text-blue-600" />
                       <span>Edansh Talks</span>
                       <span className="ml-auto bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full animate-pulse">LIVE</span>
                     </Link>

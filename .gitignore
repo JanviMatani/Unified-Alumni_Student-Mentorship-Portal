@@ -8,7 +8,7 @@ node_modules/
 
 
 config/token.json
-config/google-service.json
+backend/config/google-service.json
 
 # Logs
 logs/

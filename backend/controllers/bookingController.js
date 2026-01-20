@@ -39,15 +39,12 @@ export const bookSlot = async (req, res) => {
   try {
     const { mentorId, studentId, startTime, endTime } = req.body;
 
-    // Validate mentor
     const mentor = await User.findOne({ _id: mentorId, role: "alumni" });
     if (!mentor) return res.status(404).json({ message: "Mentor not found" });
 
-    // Validate student
     const student = await User.findOne({ _id: studentId, role: "student" });
     if (!student) return res.status(404).json({ message: "Student not found" });
 
-    // Check overlapping bookings
     const conflict = await Booking.findOne({
       mentor: mentorId,
       status: "booked",
@@ -57,23 +54,31 @@ export const bookSlot = async (req, res) => {
       ],
     });
 
-    if (conflict) return res.status(409).json({ message: "Slot already booked" });
+    if (conflict) {
+      return res.status(409).json({ message: "Slot already booked" });
+    }
 
-    // Create booking
+    // 🔹 Create Google Calendar event FIRST
+    const calendarEventLink = await createCalendarEvent({
+      startTime,
+      endTime,
+      mentor,
+      student,
+    });
+
+    if (!calendarEventLink) {
+      return res.status(500).json({ message: "Calendar event creation failed" });
+    }
+
+    // 🔹 Save booking only if calendar worked
     const booking = new Booking({
       mentor: mentorId,
       student: studentId,
       startTime,
       endTime,
+      calendarEventLink,
     });
-    // Instead of calling Google, just make a fake link
-const calendarEventLink = `https://calendar.google.com/event?eid=${booking._id}`;
 
-    // 🔹 Create Google Calendar event
-    //const calendarEventLink = await createCalendarEvent({ startTime, endTime, mentor, student });
-
-    // Save calendar link in booking
-    booking.calendarEventLink = calendarEventLink;
     await booking.save();
 
     res.status(201).json({
@@ -87,6 +92,7 @@ const calendarEventLink = `https://calendar.google.com/event?eid=${booking._id}`
     res.status(500).json({ message: "Booking failed", error: err.message });
   }
 };
+
 
 // 🔹 Get bookings for a user
 export const getMyBookings = async (req, res) => {
