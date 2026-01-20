@@ -1,14 +1,19 @@
 import express from "express";
 
-const router = express.Router();
-const {
+import {
     getCareerPaths,
     getMyPaths,
     createPath,
     updatePath,
     deletePath
-} = require("../controllers/careerPathController");
-const { protect, alumniOnly } = require("../middleware/authMiddleware");
+} from "../controllers/careerPathController.js";
+
+import {
+    protect,
+    alumniOnly
+} from "../middleware/authMiddleware.js";
+
+const router = express.Router();
 
 // Public routes
 router.get("/", getCareerPaths);
@@ -19,4 +24,4 @@ router.post("/", protect, alumniOnly, createPath);
 router.put("/:id", protect, alumniOnly, updatePath);
 router.delete("/:id", protect, alumniOnly, deletePath);
 
- export default router;
+export default router;
