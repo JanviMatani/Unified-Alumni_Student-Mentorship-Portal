@@ -13,3 +13,4 @@ backend/config/google-service.json
 # Logs
 logs/
 *.log
+backend/config/google-service.json

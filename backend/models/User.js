@@ -18,7 +18,14 @@ const userSchema = new mongoose.Schema({
     currentRole: String,
     graduationYear: Number,
     availability: [String]
+  },
+  ratings: [
+  {
+    student: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    rating: { type: Number, min: 1, max: 5 }
   }
+]
+
 });
 export default mongoose.model("User", userSchema);
 

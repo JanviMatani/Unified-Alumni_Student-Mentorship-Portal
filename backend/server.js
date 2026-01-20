@@ -9,6 +9,10 @@ import repositoryRoutes from "./routes/repository.routes.js";
 import bookingRoutes from "./routes/bookingroutes.js";
 import http from "http";
 import { Server } from "socket.io";
+import leaderboardRoutes from "./routes/mentor.js";
+
+
+
 dotenv.config();
 
 dotenv.config();
@@ -18,18 +22,22 @@ const app = express();
 connectDB();
 
 // Middlewares
-app.use(cors());
-app.use(express.json()); // Only need this once
+app.use(cors({
+  origin: "http://localhost:5173", // React dev server
+  credentials: true
+}));
+
+app.use(express.json());
 
 // Route Definitions
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
-app.use("/mentor", mentorRoutes);
+
 app.use("/repository", repositoryRoutes);
 
-app.use(express.json());
-app.use("/api/bookings", bookingRoutes);
 
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/mentors", mentorRoutes);
 app.get("/", (req, res) => {
   res.send("Backend running");
 });
@@ -60,7 +68,7 @@ io.on("connection", (socket) => {
     console.log("User disconnected:", socket.id);
   });
 });
-
+app.use("/api/leaderboard", leaderboardRoutes);
 // Start server
 const PORT = process.env.PORT || 5001;
 server.listen(PORT, () => {

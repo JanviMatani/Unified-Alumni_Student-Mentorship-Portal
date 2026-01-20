@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/find-mentors", authMiddleware, async (req, res) => {
   try {
     const student = await User.findById(req.user.id);
-    
+
     if (!student) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -28,16 +28,16 @@ router.get("/find-mentors", authMiddleware, async (req, res) => {
       // Skills nikalne ka sahi tarika (Based on your User.js Model)
       const sSkills = (student.profile && student.profile.skills) ? student.profile.skills : [];
       const mSkills = (mentor.profile && mentor.profile.skills) ? mentor.profile.skills : [];
-      
+
       console.log(`Matching ${student.name} with ${mentor.name}`);
       console.log("Student Skills:", sSkills);
       console.log("Mentor Skills:", mSkills);
 
       // Case-insensitive skill matching
-      const matchingSkills = mSkills.filter(mSkill => 
+      const matchingSkills = mSkills.filter(mSkill =>
         sSkills.some(sSkill => sSkill.toLowerCase() === mSkill.toLowerCase())
       );
-      
+
       if (matchingSkills.length > 0) {
         score += (matchingSkills.length * 10); // Points badha diye hain
         reasons.push(`${matchingSkills.length} matching skills: ${matchingSkills.join(", ")}`);
@@ -75,15 +75,15 @@ router.get("/find-mentors", authMiddleware, async (req, res) => {
       };
     })
     // AGAR ABHI BHI BLANK AA RAHA HAI, TOH IS .filter KO COMMENT KAR DENA
-    .filter(m => m.score > 0) 
+    .filter(m => m.score > 0)
     .sort((a, b) => b.score - a.score);
 
     console.log("Matched Mentors Count:", matchedMentors.length);
 
-    res.json({ 
-      success: true, 
-      count: matchedMentors.length, 
-      matchedMentors 
+    res.json({
+      success: true,
+      count: matchedMentors.length,
+      matchedMentors
     });
 
   } catch (err) {
@@ -127,7 +127,60 @@ router.get("/available", async (req, res) => {
     res.status(500).json({ message: "Failed to fetch available mentors" });
   }
 });
+// Rate a mentor
+router.post("/rate", authMiddleware, async (req, res) => {
+  console.log("POST /rate hit", req.body, req.user); // <-- add this
+  const { mentorId, rating } = req.body;
+  const studentId = req.user.id;
 
+  try {
+    const mentor = await User.findById(mentorId);
+    if (!mentor) return res.status(404).json({ success: false, message: "Mentor not found" });
+
+    if (!mentor.ratings) mentor.ratings = [];
+
+    const existing = mentor.ratings.find(r => r.student.toString() === studentId);
+    if (existing) existing.rating = rating;
+    else mentor.ratings.push({ student: studentId, rating });
+
+    await mentor.save();
+    res.json({ success: true, message: "Rating submitted" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+// GET /api/mentors/leaderboard
+router.get("/leaderboard", async (req, res) => {
+  try {
+    const mentors = await User.find({ role: "alumni", isVerified: true });
+
+    const leaderboard = mentors.map((mentor) => {
+      const ratings = mentor.ratings || [];
+      const avgRating = ratings.length
+        ? ratings.reduce((acc, r) => acc + r.rating, 0) / ratings.length
+        : 0;
+
+      return {
+        _id: mentor._id,
+        name: mentor.name,
+        email: mentor.email,
+        profile: mentor.profile || {},
+        avgRating,
+        totalRatings: ratings.length
+      };
+    });
+
+    // Sort descending by average rating
+    leaderboard.sort((a, b) => b.avgRating - a.avgRating);
+
+    res.json({ success: true, leaderboard });
+  } catch (err) {
+    console.error("Leaderboard Error:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
 
 
 

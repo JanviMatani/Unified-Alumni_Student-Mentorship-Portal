@@ -60,7 +60,7 @@ export default function Dashboard() {
             <Calendar size={18} /> <span>Schedule</span>
           </Link>
 
-          <Link to="/Repositories" className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
+          <Link to="/repositories" className="flex items-center gap-3 text-slate-500 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition">
             <MessageSquare size={18} /> <span>Messages</span>
           </Link>
         </nav>

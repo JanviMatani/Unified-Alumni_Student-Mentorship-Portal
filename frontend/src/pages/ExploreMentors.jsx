@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactStars from "react-rating-stars-component";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 import {
@@ -18,11 +19,39 @@ import {
 } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 
+
 export default function ExploreMentors() {
   const { user, tloading } = useAuth();
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [ratings, setRatings] = useState({}); // <-- here
   const navigate = useNavigate();
+const handleRateMentor = async (mentorId, rating) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) return alert("Login first");
+
+    // Update UI immediately
+    setRatings((prev) => ({ ...prev, [mentorId]: rating }));
+
+    // ✅ Here: send rating to backend
+    await axios.post(
+      "http://localhost:5001/api/mentors/rate", // your API route
+      { mentorId, rating },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    alert("Rating submitted!");
+  } catch (err) {
+  console.error("Axios error:", err.response || err);
+  if (err.response) {
+    alert(`Failed to submit rating: ${err.response.data.message || err.response.status}`);
+  } else {
+    alert("Failed to submit rating: Network error");
+  }
+}
+};
+
 
   useEffect(() => {
     const fetchMentors = async () => {
@@ -215,6 +244,21 @@ export default function ExploreMentors() {
                     ))}
                   </div>
                 </div>
+<div className="mt-4 flex items-center gap-2">
+  <p className="text-sm font-semibold text-slate-600">Rate this mentor:</p>
+  <ReactStars
+  count={5}
+  value={ratings[item.mentor._id] || 0}
+  onChange={(newRating) => handleRateMentor(item.mentor._id, newRating)}
+  size={28}
+  isHalf={false}
+  edit={true}
+  char="★"
+  activeColor="#facc15"
+  color="#e5e7eb"
+/>
+
+</div>
 
                 <div className="flex gap-4">
   <button
