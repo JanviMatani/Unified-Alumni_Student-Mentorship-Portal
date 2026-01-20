@@ -22,8 +22,6 @@ const app = express();
 // Connect to Database
 connectDB();
 
-// Middlewares
-import cors from "cors";
 
 app.use(
   cors({
