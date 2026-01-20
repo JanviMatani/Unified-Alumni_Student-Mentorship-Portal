@@ -37,7 +37,7 @@ export default function ExploreMentors() {
       setRatings((prev) => ({ ...prev, [mentorId]: rating }));
 
       await axios.post(
-        "http://localhost:5001/api/mentors/rate",
+        "https://unified-alumni-student-mentorship-portal.onrender.com/api/mentors/rate",
         { mentorId, rating },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -65,7 +65,7 @@ export default function ExploreMentors() {
         }
 
         const res = await axios.get(
-          "http://localhost:5001/api/mentors/find-mentors",
+          "https://unified-alumni-student-mentorship-portal.onrender.com/api/mentors/find-mentors",
           {
             headers: {
               Authorization: `Bearer ${token}`

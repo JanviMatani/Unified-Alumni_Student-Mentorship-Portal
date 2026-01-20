@@ -22,7 +22,7 @@ const Register = () => {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5001/auth/register", {
+      const res = await fetch("https://unified-alumni-student-mentorship-portal.onrender.com/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

@@ -17,7 +17,7 @@ const Login = () => {
 
     try {
       // 1. API Call to your Backend (which checks MongoDB)
-      const res = await fetch("http://localhost:5001/auth/login", {
+      const res = await fetch("https://unified-alumni-student-mentorship-portal.onrender.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
         return;
       }
 
-      const res = await fetch("http://localhost:5001/profile", {
+      const res = await fetch("https://unified-alumni-student-mentorship-portal.onrender.com/profile", {
         headers: {
           Authorization: `Bearer ${token}`
         }

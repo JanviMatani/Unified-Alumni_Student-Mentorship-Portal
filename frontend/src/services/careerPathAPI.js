@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5001/api/career-paths";
+const API_URL = "https://unified-alumni-student-mentorship-portal.onrender.com/api/career-paths";
 
 // CLIENT-SIDE FALLBACK DATA
 const FALLBACK_PATHS = [

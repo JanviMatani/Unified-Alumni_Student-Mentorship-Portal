@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
 // Replace with your backend URL
-const SOCKET_URL = "http://localhost:5001";
+const SOCKET_URL = "https://unified-alumni-student-mentorship-portal.onrender.com";
 
 const socket = io(SOCKET_URL);
 

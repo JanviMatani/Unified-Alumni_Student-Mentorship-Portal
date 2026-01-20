@@ -26,7 +26,7 @@ export default function Repositories() {
   /* ---------------- FETCH ALL POSTS ---------------- */
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch("http://localhost:5001/repository", {
+      const res = await fetch("https://unified-alumni-student-mentorship-portal.onrender.com/repository", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -45,7 +45,7 @@ export default function Repositories() {
 
     setSubmitting(true);
 
-    const res = await fetch("http://localhost:5001/repository", {
+    const res = await fetch("https://unified-alumni-student-mentorship-portal.onrender.com/repository", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

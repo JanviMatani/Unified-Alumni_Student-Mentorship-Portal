@@ -1,5 +1,5 @@
 export const register = async (userData) => {
-    const response = await fetch("http://localhost:5001/auth/register", {
+    const response = await fetch("https://unified-alumni-student-mentorship-portal.onrender.com/auth/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -18,7 +18,7 @@ export const register = async (userData) => {
 };
 
 export const login = async (userData) => {
-    const response = await fetch("http://localhost:5001/auth/login", {
+    const response = await fetch("https://unified-alumni-student-mentorship-portal.onrender.com/auth/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

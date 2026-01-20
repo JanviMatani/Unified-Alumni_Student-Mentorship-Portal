@@ -48,7 +48,7 @@ export default function ScheduleAppointment() {
       const token = localStorage.getItem("token");
 
 const res = await fetch(
-  `http://localhost:5001/api/mentors/available?date=${date.toISOString()}`,
+  `https://unified-alumni-student-mentorship-portal.onrender.com/api/mentors/available?date=${date.toISOString()}`,
   { headers: { Authorization: `Bearer ${token}` } }
 );
 
@@ -65,7 +65,7 @@ const res = await fetch(
   useEffect(() => {
   const token = localStorage.getItem("token");
 
-  fetch(`http://localhost:5001/api/bookings/my/${userId}`, {
+  fetch(`https://unified-alumni-student-mentorship-portal.onrender.com/api/bookings/my/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -88,7 +88,7 @@ const res = await fetch(
       const token = localStorage.getItem("token");
 console.log("TOKEN:", localStorage.getItem("token"));
 
-const res = await fetch("http://localhost:5001/api/bookings/book", {
+const res = await fetch("https://unified-alumni-student-mentorship-portal.onrender.com/api/bookings/book", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

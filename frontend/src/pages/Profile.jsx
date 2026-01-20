@@ -20,7 +20,7 @@ const Profile = () => {
       const token = localStorage.getItem("token");
       try {
         // Assuming your route is mounted at /api/profile
-        const res = await fetch("http://localhost:5001/profile", {
+        const res = await fetch("https://unified-alumni-student-mentorship-portal.onrender.com/profile", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ const Profile = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("http://localhost:5001/profile", {
+      const res = await fetch("https://unified-alumni-student-mentorship-portal.onrender.com/profile", {
         method: "POST", // Changed to POST to match your backend
         headers: {
           "Content-Type": "application/json",

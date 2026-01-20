@@ -5,7 +5,7 @@ export default function Leaderboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/mentors/leaderboard")
+    fetch("https://unified-alumni-student-mentorship-portal.onrender.com/api/mentors/leaderboard")
       .then((res) => res.json())
       .then((res) => {
         if (res.success) setData(res.leaderboard);
