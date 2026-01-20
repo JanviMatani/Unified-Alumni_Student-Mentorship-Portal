@@ -2,6 +2,8 @@ import Booking from "../models/booking.js";
 import User from "../models/User.js";
 import { google } from "googleapis";
 import dotenv from "dotenv";
+import { sendEmail } from "../utils/sendEmail.js"
+
 dotenv.config();
 
 // 🔹 Setup Google Service Account auth
@@ -80,6 +82,19 @@ export const bookSlot = async (req, res) => {
     });
 
     await booking.save();
+    
+    await sendEmail(
+  "zoya2432006@gmail.com", // fixed email
+  "Mentorship Session Booked!",
+  `Hello Shweta,
+A mentorship session has been booked.
+Mentor: ${mentor.name}
+Student: ${student.name}
+Start: ${new Date(startTime).toLocaleString()}
+End: ${new Date(endTime).toLocaleString()}
+
+View event: ${calendarEventLink}`
+);
 
     res.status(201).json({
       message: "Slot booked successfully",
