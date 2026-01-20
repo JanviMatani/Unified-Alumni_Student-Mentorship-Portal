@@ -10,6 +10,7 @@ import bookingRoutes from "./routes/bookingroutes.js";
 import http from "http";
 import { Server } from "socket.io";
 import leaderboardRoutes from "./routes/mentor.js";
+import careerPathRoutes from "./routes/careerPathRoutes.js";
 
 
 
@@ -38,6 +39,8 @@ app.use("/repository", repositoryRoutes);
 
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/mentors", mentorRoutes);
+app.use("/api/career-paths", careerPathRoutes);
+
 app.get("/", (req, res) => {
   res.send("Backend running");
 });

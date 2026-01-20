@@ -10,6 +10,7 @@ import ChatPage from "./pages/ChatPage";
 import EdanshTalks from "./pages/EdanshTalks";
 import Leaderboard from "./pages/leaderboard";
 import AlumniDashboard from "./pages/AlumniDashboard";
+import CareerPathVisualizer from "./pages/CareerPathVisualizer";
 const PrivateRoute=({children}) => {
   const token = localStorage.getItem("token");
   return token ? children : <Navigate to="/" ></Navigate>
@@ -29,6 +30,7 @@ function App() {
         <Route path="/explore-mentors" element={<ExploreMentors />} />
         <Route path="/repositories" element={<Repositories />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/path" element={<CareerPathVisualizer />} />
         {/* Messaging & Community Features */}
   <Route path="/chat/:mentorId" element={<PrivateRoute><ChatPage /></PrivateRoute>} />
 <Route path="/edansh-talks" element={<PrivateRoute><EdanshTalks /></PrivateRoute>} />
